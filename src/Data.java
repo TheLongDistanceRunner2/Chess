@@ -47,10 +47,10 @@ public class Data {
 
                 for (int j = 0; j < 8; j++) {
                     String tmpWord = inLine[j];
+                    System.out.println("->  " + tmpWord);
 
                     Chessman tmpChessman = new Chessman(i, convertColumn(j), new Player(tmpWord.charAt(0)), tmpWord.charAt(1));
                     chessmen.get(i).add(tmpChessman);
-                    //this.chessmen[i][Integer.valueOf(j)].add(tmpChessman);
                 }
             }
 
@@ -62,7 +62,7 @@ public class Data {
     public void showData() {
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
-                System.out.print(this.chessmen.get(i).get(j).getPlayer().getName() + (char)this.chessmen.get(i).get(j).getChessman() + " ");
+                System.out.print(this.chessmen.get(i).get(j).getPlayer().getName() + "" + this.chessmen.get(i).get(j).getChessman() + " ");
             }
             System.out.println();
         }
