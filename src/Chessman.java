@@ -85,23 +85,23 @@ public class Chessman {
         }
         // if it's a Rook:
         else if (this.chessman == 'R') {
-
+            this.setMovementsRook();
         }
         // if it's a kNight:
         else if (this.chessman == 'N') {
-
+            this.setMovementskNight();
         }
         // if it's a Bishop:
         else if (this.chessman == 'B') {
-
+            this.setMovementsBishop();
         }
         // if it's a King:
         else if (this.chessman == 'K') {
-
+            this.setMovementsKing();
         }
         // if it's a Queen:
         else if (this.chessman == 'Q') {
-
+            this.setMovementsQueen();
         }
     }
 
@@ -138,5 +138,115 @@ public class Chessman {
         this.movements.add(new Movement(this.row + 1, convertColumn(this.column)));
         // two fields forward:
         this.movements.add(new Movement(this.row + 2, convertColumn(this.column)));
+        // capture:
+        this.movements.add(new Movement(this.row + 1, convertColumn(this.column) + 1));
+        this.movements.add(new Movement(this.row + 1, convertColumn(this.column) - 1));
+    }
+
+    private void setMovementsKing() {
+        // up:
+        this.movements.add(new Movement(this.row + 1, convertColumn(this.column)));
+        // up and right:
+        this.movements.add(new Movement(this.row + 1, convertColumn(this.column) + 1));
+        // right:
+        this.movements.add(new Movement(this.row, convertColumn(this.column) + 1));
+        // down and right:
+        this.movements.add(new Movement(this.row - 1, convertColumn(this.column) + 1));
+        // down:
+        this.movements.add(new Movement(this.row - 1, convertColumn(this.column)));
+        // down and left:
+        this.movements.add(new Movement(this.row - 1, convertColumn(this.column) - 1));
+        // left:
+        this.movements.add(new Movement(this.row, convertColumn(this.column) - 1));
+        // left and up:
+        this.movements.add(new Movement(this.row + 1, convertColumn(this.column) - 1));
+    }
+
+    private void setMovementsQueen() {
+        // up:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row + i, convertColumn(this.column)));
+        }
+        // down:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row - i, convertColumn(this.column)));
+        }
+        // left:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row, convertColumn(this.column) - i));
+        }
+        // right:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row, convertColumn(this.column) + i));
+        }
+        // up and right:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row + i, convertColumn(this.column) + i));
+        }
+        // up and left:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row + i, convertColumn(this.column) - i));
+        }
+        // down and left:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row - i, convertColumn(this.column) - i));
+        }
+        // down and right:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row - i, convertColumn(this.column) + i));
+        }
+    }
+
+    private void setMovementsRook() {
+        // up:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row + i, convertColumn(this.column)));
+        }
+        // down:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row - i, convertColumn(this.column)));
+        }
+        // left:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row, convertColumn(this.column) - i));
+        }
+        // right:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row, convertColumn(this.column) + i));
+        }
+    }
+
+    private void setMovementsBishop() {
+        // up and right:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row + i, convertColumn(this.column) + i));
+        }
+        // up and left:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row + i, convertColumn(this.column) - i));
+        }
+        // down and left:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row - i, convertColumn(this.column) - i));
+        }
+        // down and right:
+        for (int i = 1; i < 8; i++) {
+            this.movements.add(new Movement(this.row - i, convertColumn(this.column) + i));
+        }
+    }
+
+    private void setMovementskNight() {
+        // up and left corner:
+        this.movements.add(new Movement(this.row + 1, convertColumn(this.column) - 2));
+        this.movements.add(new Movement(this.row + 2, convertColumn(this.column) - 1));
+        // up and right corner:
+        this.movements.add(new Movement(this.row + 2, convertColumn(this.column) + 1));
+        this.movements.add(new Movement(this.row + 1, convertColumn(this.column) + 2));
+        // down and right corner:
+        this.movements.add(new Movement(this.row - 1, convertColumn(this.column) + 2));
+        this.movements.add(new Movement(this.row - 2, convertColumn(this.column) + 1));
+        // down and left corner:
+        this.movements.add(new Movement(this.row - 2, convertColumn(this.column) - 1));
+        this.movements.add(new Movement(this.row - 1, convertColumn(this.column) - 2));
     }
 }
