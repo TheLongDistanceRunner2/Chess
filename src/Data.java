@@ -35,6 +35,10 @@ public class Data {
         this.chessmen = chessmen;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public void readFile() {
         Scanner sc2 = null;
 
@@ -97,10 +101,9 @@ public class Data {
         return 'x';
     }
 
-    public static void main(String[] args) {
-        Data data1 = new Data("input.txt");
-        data1.readFile();
-        data1.showData();
-    }
-
+//    public static void main(String[] args) {
+//        Data data1 = new Data("input.txt");
+//        data1.readFile();
+//        data1.showData();
+//    }
 }

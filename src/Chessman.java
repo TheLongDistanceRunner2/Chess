@@ -29,20 +29,7 @@ public class Chessman {
     }
 
     //======================================
-    public class Movement {
-        int row;
-        int column;
 
-        public Movement() {
-            this.row = 0;
-            this.column = 0;
-        }
-
-        public Movement(int row, int column) {
-            this.row = row;
-            this.column = column;
-        }
-    }
     //=======================================
 
     public int getRow() {
