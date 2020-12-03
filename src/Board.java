@@ -65,11 +65,43 @@ public class Board {
         }
     }
 
+    private int convertColumn(char j) {
+        if (j == 'A') {
+            return 0;
+        }
+        else if (j == 'B') {
+            return 1;
+        }
+        else if (j == 'C') {
+            return 2;
+        }
+        else if (j == 'D') {
+            return 3;
+        }
+        else if (j == 'E') {
+            return 4;
+        }
+        else if (j == 'F') {
+            return 5;
+        }
+        else if (j == 'G') {
+            return 6;
+        }
+        else if (j == 'H') {
+            return 7;
+        }
+        return -1;
+    }
+
     private boolean isMovementInList(Movement movement) {
+        // NAJPIERW ZNAJDŹ TE KONKRETNA FIGURĘ W TABLICY, A POTEM SPRAWDZAJ JEJ RUCHY !!!!!!!!!!
+
+
         for (int i = 0; i < this.chessmen.size(); i++) {
             for (int j = 0; j < this.chessmen.size(); j++) {
                 // if found this movement:
-                if (this.chessmen.get(i).get(j).equals(movement)) {
+                if (this.chessmen.get(i).get(j).getRow() == movement.getRow() &&
+                    this.convertColumn(this.chessmen.get(i).get(j).getColumn()) == movement.getColumn()) {
                     return true;
                 }
             }
