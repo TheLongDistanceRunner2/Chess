@@ -92,6 +92,10 @@ public class Chessman {
         }
     }
 
+    public List<Movement> getMovements() {
+        return movements;
+    }
+
     private int convertColumn(char j) {
         if (j == 'A') {
             return 0;
@@ -122,39 +126,39 @@ public class Chessman {
 
     private void setMovementsPawn() {
         // one field forward:
-        this.movements.add(new Movement(this.row + 1, convertColumn(this.column)));
+        this.movements.add(new Movement(this.row - 1, convertColumn(this.column)));
         // two fields forward:
-        this.movements.add(new Movement(this.row + 2, convertColumn(this.column)));
+        this.movements.add(new Movement(this.row - 2, convertColumn(this.column)));
         // capture:
-        this.movements.add(new Movement(this.row + 1, convertColumn(this.column) + 1));
-        this.movements.add(new Movement(this.row + 1, convertColumn(this.column) - 1));
+        this.movements.add(new Movement(this.row - 1, convertColumn(this.column) + 1));
+        this.movements.add(new Movement(this.row - 1, convertColumn(this.column) - 1));
     }
 
     private void setMovementsKing() {
-        // up:
+        // down:
         this.movements.add(new Movement(this.row + 1, convertColumn(this.column)));
-        // up and right:
+        // down and right:
         this.movements.add(new Movement(this.row + 1, convertColumn(this.column) + 1));
         // right:
         this.movements.add(new Movement(this.row, convertColumn(this.column) + 1));
-        // down and right:
+        // up and right:
         this.movements.add(new Movement(this.row - 1, convertColumn(this.column) + 1));
-        // down:
+        // up:
         this.movements.add(new Movement(this.row - 1, convertColumn(this.column)));
-        // down and left:
+        // up and left:
         this.movements.add(new Movement(this.row - 1, convertColumn(this.column) - 1));
         // left:
         this.movements.add(new Movement(this.row, convertColumn(this.column) - 1));
-        // left and up:
+        // left and down:
         this.movements.add(new Movement(this.row + 1, convertColumn(this.column) - 1));
     }
 
     private void setMovementsQueen() {
-        // up:
+        // down:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row + i, convertColumn(this.column)));
         }
-        // down:
+        // up:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row - i, convertColumn(this.column)));
         }
@@ -166,30 +170,30 @@ public class Chessman {
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row, convertColumn(this.column) + i));
         }
-        // up and right:
+        // down and right:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row + i, convertColumn(this.column) + i));
         }
-        // up and left:
+        // down and left:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row + i, convertColumn(this.column) - i));
         }
-        // down and left:
+        // up and left:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row - i, convertColumn(this.column) - i));
         }
-        // down and right:
+        // up and right:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row - i, convertColumn(this.column) + i));
         }
     }
 
     private void setMovementsRook() {
-        // up:
+        // down:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row + i, convertColumn(this.column)));
         }
-        // down:
+        // up:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row - i, convertColumn(this.column)));
         }
@@ -204,35 +208,35 @@ public class Chessman {
     }
 
     private void setMovementsBishop() {
-        // up and right:
+        // down and right:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row + i, convertColumn(this.column) + i));
         }
-        // up and left:
+        // down and left:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row + i, convertColumn(this.column) - i));
         }
-        // down and left:
+        // up and left:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row - i, convertColumn(this.column) - i));
         }
-        // down and right:
+        // up and right:
         for (int i = 1; i < 8; i++) {
             this.movements.add(new Movement(this.row - i, convertColumn(this.column) + i));
         }
     }
 
     private void setMovementskNight() {
-        // up and left corner:
+        // down and left corner:
         this.movements.add(new Movement(this.row + 1, convertColumn(this.column) - 2));
         this.movements.add(new Movement(this.row + 2, convertColumn(this.column) - 1));
-        // up and right corner:
+        // down and right corner:
         this.movements.add(new Movement(this.row + 2, convertColumn(this.column) + 1));
         this.movements.add(new Movement(this.row + 1, convertColumn(this.column) + 2));
-        // down and right corner:
+        // up and right corner:
         this.movements.add(new Movement(this.row - 1, convertColumn(this.column) + 2));
         this.movements.add(new Movement(this.row - 2, convertColumn(this.column) + 1));
-        // down and left corner:
+        // up and left corner:
         this.movements.add(new Movement(this.row - 2, convertColumn(this.column) - 1));
         this.movements.add(new Movement(this.row - 1, convertColumn(this.column) - 2));
     }

@@ -95,26 +95,23 @@ public class Board {
 
     private boolean isMovementInList(Movement movement) {
         // NAJPIERW ZNAJDŹ TE KONKRETNA FIGURĘ W TABLICY, A POTEM SPRAWDZAJ JEJ RUCHY !!!!!!!!!!
+        Chessman currentChessman = this.chessmen.get(this.chessmanToMove.getRow())
+                .get(this.chessmanToMove.getColumn());
 
-
-        for (int i = 0; i < this.chessmen.size(); i++) {
-            for (int j = 0; j < this.chessmen.size(); j++) {
-                // if found this movement:
-                if (this.chessmen.get(i).get(j).getRow() == movement.getRow() &&
-                    this.convertColumn(this.chessmen.get(i).get(j).getColumn()) == movement.getColumn()) {
-                    return true;
-                }
+        for (int i = 0; i < currentChessman.getMovements().size(); i++) {
+            // if the chessman's movement is equal to the movement we're considering:
+            if (currentChessman.getMovements().get(i).getRow() == movement.getRow()
+                    && currentChessman.getMovements().get(i).getColumn() == movement.getColumn()) {
+                return true;
             }
         }
-        // if not found:
+
         return false;
     }
 
     private boolean hasThisMovement() {
         int tmpRow = this.nextMovement.getRow() - this.chessmanToMove.getRow();
         int tmpColumn = this.nextMovement.getColumn() - this.chessmanToMove.getColumn();
-
-        // KONIECZNA KONWERSJA CHAR NA INTA !!!!
 
         if (isMovementInList(new Movement(this.chessmanToMove.getRow() + tmpRow,
                 this.chessmanToMove.getColumn() + tmpColumn))) {
@@ -129,11 +126,13 @@ public class Board {
     public static void main(String[] args) {
         Player player1 = new Player('1');
         Board board1 = new Board(player1);
-        board1.setChessmanToMove(new Movement(6, 1));
+
+        // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
+        board1.setChessmanToMove(new Movement(7, 6));
         System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
 
         // ustawiamy ruch, których chcemy wykonać:
-        board1.setNextMovement(new Movement(5 ,1));
+        board1.setNextMovement(new Movement(5 ,5));
 
         System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
 
