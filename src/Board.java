@@ -46,7 +46,17 @@ public class Board {
     public String checkMovement() {
         // if it is the chessman of the current player:
         if (isPlayersChessman()) {
-            return "POSSIBLE MOVEMENT";
+            if (hasThisMovement()) {
+                if (isIWithinBoard()) {
+                    return "POSSIBLE MOVEMENT";
+                }
+                else {
+                    return "IMPOSSIBLE MOVEMENT - YOU WILL GET OUT OF THE BOARD !!!";
+                }
+            }
+            else {
+                return "IMPOSSIBLE MOVEMENT - THIS CHESSMAN CANNOT MOVE IN THAT WAY !!!";
+            }
         }
         else {
             return "IMPOSSIBLE MOVEMENT - IT'S NOT YOUR CHESSMAN !!!";
@@ -94,7 +104,6 @@ public class Board {
     }
 
     private boolean isMovementInList(Movement movement) {
-        // NAJPIERW ZNAJDŹ TE KONKRETNA FIGURĘ W TABLICY, A POTEM SPRAWDZAJ JEJ RUCHY !!!!!!!!!!
         Chessman currentChessman = this.chessmen.get(this.chessmanToMove.getRow())
                 .get(this.chessmanToMove.getColumn());
 
@@ -113,10 +122,31 @@ public class Board {
         int tmpRow = this.nextMovement.getRow() - this.chessmanToMove.getRow();
         int tmpColumn = this.nextMovement.getColumn() - this.chessmanToMove.getColumn();
 
+        // if has this movement:
         if (isMovementInList(new Movement(this.chessmanToMove.getRow() + tmpRow,
                 this.chessmanToMove.getColumn() + tmpColumn))) {
             return true;
         }
+        // if not:
+        else {
+            return false;
+        }
+    }
+
+    private boolean isIWithinBoard() {
+        // get the indexes of the next movement:
+        int tmpRow = this.nextMovement.getRow() - this.chessmanToMove.getRow();
+        int tmpColumn = this.nextMovement.getColumn() - this.chessmanToMove.getColumn();
+        // add them to the current position:
+        int tmpRow2 = tmpRow + this.chessmanToMove.getRow();
+        int tmpColumn2 = tmpColumn + this.chessmanToMove.getColumn();
+
+        // if is within board:
+        if (tmpRow2 < this.data1.getSize() && tmpRow2 >= 0 &&
+                tmpColumn2 < this.data1.getSize() && tmpColumn2 >= 0) {
+            return true;
+        }
+        // if not:
         else {
             return false;
         }
@@ -129,12 +159,13 @@ public class Board {
 
         // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
         board1.setChessmanToMove(new Movement(7, 6));
-        System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
+        //System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
 
         // ustawiamy ruch, których chcemy wykonać:
         board1.setNextMovement(new Movement(5 ,5));
+        //System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
 
-        System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
+        System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
 
 
     }
