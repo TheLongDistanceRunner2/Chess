@@ -60,16 +60,74 @@ public class Board {
                 if (isIWithinBoard()) {
                     Chessman currentChessman = this.chessmen.get(this.chessmanToMove.getRow())
                             .get(this.chessmanToMove.getColumn());
+                    char tmpChar = this.getDestinationField().getPlayer().getName();
+                    char tmpChar2 = this.getDestinationField().getChessman();  // zrobic legende p -> pawn itd.
 
                     // if it's a Pawn:
                     if(currentChessman.getChessman() == 'P') {
-                        return "POSSIBLE MOVEMENT";
+                        int tmpInt = this.nextMovement.getColumn();
+
+                        // if the Pawn is going forwards:
+                        if(this.chessmanToMove.getColumn() == tmpInt) {
+                            int steps = this.chessmanToMove.getRow() - this.nextMovement.getRow();
+
+                            // if 1 step forward:
+                            if(steps == 1) {
+                                // if destination field is empty:
+                                if (tmpChar == '[') {
+                                    return "POSSIBLE MOVEMENT";
+                                }
+                                // if there is an opponent's chessman:
+                                else if (tmpChar == this.opponentPlayer.getName()) {
+                                    return "IMPOSSIBLE MOVEMENT - IT'S OPPONENT'S CHESSMAN THERE!";
+                                }
+                                // if it's an own chessman:
+                                else if (tmpChar == this.currentPlayer.getName()) {
+                                        return "IMPOSSIBLE MOVEMENT - IT'S OWN CHESSMAN THERE!";
+                                }
+                            }
+                            // if 2 steps forward:
+                            else if (steps == 2) {
+                                // if the first field forward is empty:
+                                if (this.chessmen.get(this.nextMovement.getRow() + 1)
+                                        .get(this.nextMovement.getColumn())
+                                        .getPlayer().getName() == '[') {
+                                    // if the second field is empty:
+                                    if (tmpChar == '[') {
+                                        return "POSSIBLE MOVEMENT";
+                                    }
+                                    // if there is an opponent's chessman:
+                                    else if (tmpChar == this.opponentPlayer.getName()) {
+                                        return "IMPOSSIBLE MOVEMENT - IT'S OPPONENT'S CHESSMAN THERE!";
+                                    }
+                                    // if it's an own chessman:
+                                    else if (tmpChar == this.currentPlayer.getName()) {
+                                        return "IMPOSSIBLE MOVEMENT - IT'S OWN CHESSMAN THERE!";
+                                    }
+                                }
+                                else {
+                                    return "IMPOSSIBLE MOVEMENT - FIRST FIELD FORWARD IS NOT EMPTY!";
+                                }
+                            }
+                        }
+                        // if the Pawn is trying to capture opponent's chessman:
+                        else {
+                            // if destination field is empty:
+                            if (tmpChar == '[') {
+                                return "IMPOSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                            }
+                            // if there is an opponent's chessman:
+                            else if (tmpChar == this.opponentPlayer.getName()) {
+                                return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    " + tmpChar2 + " !";
+                            }
+                            // if it's an own chessman:
+                            else if (tmpChar == this.currentPlayer.getName()) {
+                                return "IMPOSSIBLE MOVEMENT - IT'S OWN CHESSMAN!";
+                            }
+                        }
                     }
                     // if it's a kNight:
                     else if (currentChessman.getChessman() == 'N') {
-                        char tmpChar = this.getDestinationField().getPlayer().getName();
-                        char tmpChar2 = this.getDestinationField().getChessman();  // zrobic legende p -> pawn itd.
-
                         // if destination field is empty:
                         if (tmpChar == '[') {
                             return "POSSIBLE MOVEMENT - DESTINATION FIELD IS FREE";
@@ -204,11 +262,11 @@ public class Board {
         Board board1 = new Board(player1, player2);
 
         // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
-        board1.setChessmanToMove(new Movement(7, 6));
+        board1.setChessmanToMove(new Movement(6, 2));
         //System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
 
         // ustawiamy ruch, których chcemy wykonać:
-        board1.setNextMovement(new Movement(5 ,5));
+        board1.setNextMovement(new Movement(4 ,2));
         //System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
 
         //System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
