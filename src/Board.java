@@ -5,15 +5,17 @@ public class Board {
     private List<List<Chessman>> chessmen;
     private Data data1;
     private Player currentPlayer;
+    private Player opponentPlayer;
     private Movement chessmanToMove;
     private Movement nextMovement;
 
-    public Board(Player player) {
+    public Board(Player player, Player opponent) {
         this.data1 = new Data("input.txt");
         this.chessmen = new ArrayList<List<Chessman>>(data1.getSize());
         data1.readFile();
         this.chessmen = data1.getChessmen();
         this.currentPlayer = player;
+        this.opponentPlayer = opponent;
         this.chessmanToMove = new Movement(0, 0);
         this.nextMovement = new Movement(0, 0);
     }
@@ -24,6 +26,14 @@ public class Board {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Player getOpponentPlayer() {
+        return opponentPlayer;
+    }
+
+    public void setOpponentPlayer(Player opponentPlayer) {
+        this.opponentPlayer = opponentPlayer;
     }
 
     public Movement getChessmanToMove() {
@@ -48,7 +58,35 @@ public class Board {
         if (isPlayersChessman()) {
             if (hasThisMovement()) {
                 if (isIWithinBoard()) {
-                    return "POSSIBLE MOVEMENT";
+                    Chessman currentChessman = this.chessmen.get(this.chessmanToMove.getRow())
+                            .get(this.chessmanToMove.getColumn());
+
+                    // if it's a Pawn:
+                    if(currentChessman.getChessman() == 'P') {
+                        return "POSSIBLE MOVEMENT";
+                    }
+                    // if it's a kNight:
+                    else if (currentChessman.getChessman() == 'N') {
+                        char tmpChar = this.getDestinationField().getPlayer().getName();
+                        char tmpChar2 = this.getDestinationField().getChessman();  // zrobic legende p -> pawn itd.
+
+                        // if destination field is empty:
+                        if (tmpChar == '[') {
+                            return "POSSIBLE MOVEMENT - DESTINATION FIELD IS FREE";
+                        }
+                        // if there is an opponent's chessman:
+                        else if (tmpChar == this.opponentPlayer.getName()) {
+                            return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    " + tmpChar2 + " !";
+                        }
+                        // if it's an own chessman:
+                        else if (tmpChar == this.currentPlayer.getName()) {
+                            return "IMPOSSIBLE MOVEMENT - IT'S OWN CHESSMAN!";
+                        }
+                    }
+                    // if it's the other chessman:
+                    else {
+                        return "POSSIBLE MOVEMENT";
+                    }
                 }
                 else {
                     return "IMPOSSIBLE MOVEMENT - YOU WILL GET OUT OF THE BOARD !!!";
@@ -61,6 +99,8 @@ public class Board {
         else {
             return "IMPOSSIBLE MOVEMENT - IT'S NOT YOUR CHESSMAN !!!";
         }
+
+        return "jklsdfajkladsjkld";
     }
 
     private boolean isPlayersChessman() {
@@ -133,6 +173,11 @@ public class Board {
         }
     }
 
+    private Chessman getDestinationField() {
+        return this.chessmen.get(this.nextMovement.getRow())
+                .get(this.nextMovement.getColumn());
+    }
+
     private boolean isIWithinBoard() {
         // get the indexes of the next movement:
         int tmpRow = this.nextMovement.getRow() - this.chessmanToMove.getRow();
@@ -155,7 +200,8 @@ public class Board {
     //==================================================================================================================
     public static void main(String[] args) {
         Player player1 = new Player('1');
-        Board board1 = new Board(player1);
+        Player player2 = new Player('2');
+        Board board1 = new Board(player1, player2);
 
         // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
         board1.setChessmanToMove(new Movement(7, 6));
@@ -165,9 +211,9 @@ public class Board {
         board1.setNextMovement(new Movement(5 ,5));
         //System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
 
-        System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
+        //System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
 
-
+        System.out.println("-> checkMovement(): " + board1.checkMovement());
     }
 }
 
