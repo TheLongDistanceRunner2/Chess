@@ -309,7 +309,160 @@ public class Board {
                         }
                         // if it's a Bishop:
                         else if (currentChessman.getChessman() == 'B') {
-                            return "POSSIBLE MOVEMENT";
+                            // if destination field is empty:
+                            if (tmpChar == '[') {
+                                // check every field before reaching the destination one
+                                // depending on the difference of the coordinates:
+
+                                // moving up and left:
+                                if (differenceRows < 0 && differenceeColumns < 0) {
+                                    // check every field:
+                                    for (int i = 1; i < Math.abs(differenceRows); i++) {
+                                        int tmpR = this.chessmanToMove.getRow() - i;
+                                        int tmpC = this.chessmanToMove.getColumn() - i;
+
+                                        char tmp = this.chessmen.get(tmpR).get(tmpC).getChessman();
+
+                                        // if the field is not free, change the flag to false:
+                                        if (tmp != ']') {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+                                // moving up and right:
+                                else if (differenceRows < 0 && differenceeColumns > 0) {
+                                    // check every field:
+                                    for (int i = 1; i < Math.abs(differenceRows); i++) {
+                                        int tmpR = this.chessmanToMove.getRow() - i;
+                                        int tmpC = this.chessmanToMove.getColumn() + i;
+
+                                        char tmp = this.chessmen.get(tmpR).get(tmpC).getChessman();
+
+                                        // if the field is not free, change the flag to false:
+                                        if (tmp != ']') {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+                                // moving down and left:
+                                else if (differenceRows > 0 && differenceeColumns < 0) {
+                                    // check every field:
+                                    for (int i = 1; i < Math.abs(differenceeColumns); i++) {
+                                        int tmpR = this.chessmanToMove.getRow() + i;
+                                        int tmpC = this.chessmanToMove.getColumn() - i;
+
+                                        char tmp = this.chessmen.get(tmpR).get(tmpC).getChessman();
+
+                                        // if the field is not free, change the flag to false:
+                                        if (tmp != ']') {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+                                // moving down and right:
+                                else if (differenceRows > 0 && differenceeColumns > 0) {
+                                    // check every field:
+                                    for (int i = 1; i < Math.abs(differenceeColumns); i++) {
+                                        int tmpR = this.chessmanToMove.getRow() + i;
+                                        int tmpC = this.chessmanToMove.getColumn() + i;
+
+                                        char tmp = this.chessmen.get(tmpR).get(tmpC).getChessman();
+
+                                        // if the field is not free, change the flag to false:
+                                        if (tmp != ']') {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+
+                                // if the flag remained unchanged:
+                                if (flag) {
+                                    return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                }
+                                // if it was changed:
+                                else {
+                                    return "IMPOSSIBLE MOVEMENT - THE PATH IS NOT CLEAR!";
+                                }
+                            }
+                            // if there is an opponent's chessman:
+                            else if (tmpChar == this.opponentPlayer.getName()) {
+                                // check every field before reaching the destination one
+                                // depending on the difference of the coordinates:
+
+                                // moving up and left:
+                                if (differenceRows < 0 && differenceeColumns < 0) {
+                                    // check every field:
+                                    for (int i = 1; i < Math.abs(differenceRows); i++) {
+                                        int tmpR = this.chessmanToMove.getRow() - i;
+                                        int tmpC = this.chessmanToMove.getColumn() - i;
+
+                                        char tmp = this.chessmen.get(tmpR).get(tmpC).getChessman();
+
+                                        // if the field is not free, change the flag to false:
+                                        if (tmp != ']') {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+                                // moving up and right:
+                                else if (differenceRows < 0 && differenceeColumns > 0) {
+                                    // check every field:
+                                    for (int i = 1; i < Math.abs(differenceRows); i++) {
+                                        int tmpR = this.chessmanToMove.getRow() - i;
+                                        int tmpC = this.chessmanToMove.getColumn() + i;
+
+                                        char tmp = this.chessmen.get(tmpR).get(tmpC).getChessman();
+
+                                        // if the field is not free, change the flag to false:
+                                        if (tmp != ']') {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+                                // moving down and left:
+                                else if (differenceRows > 0 && differenceeColumns < 0) {
+                                    // check every field:
+                                    for (int i = 1; i < Math.abs(differenceeColumns); i++) {
+                                        int tmpR = this.chessmanToMove.getRow() + i;
+                                        int tmpC = this.chessmanToMove.getColumn() - i;
+
+                                        char tmp = this.chessmen.get(tmpR).get(tmpC).getChessman();
+
+                                        // if the field is not free, change the flag to false:
+                                        if (tmp != ']') {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+                                // moving down and right:
+                                else if (differenceRows > 0 && differenceeColumns > 0) {
+                                    // check every field:
+                                    for (int i = 1; i < Math.abs(differenceeColumns); i++) {
+                                        int tmpR = this.chessmanToMove.getRow() + i;
+                                        int tmpC = this.chessmanToMove.getColumn() + i;
+
+                                        char tmp = this.chessmen.get(tmpR).get(tmpC).getChessman();
+
+                                        // if the field is not free, change the flag to false:
+                                        if (tmp != ']') {
+                                            flag = false;
+                                        }
+                                    }
+                                }
+
+                                // if the flag remained unchanged:
+                                if (flag) {
+                                    return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                }
+                                // if it was changed:
+                                else {
+                                    return "IMPOSSIBLE MOVEMENT - THE PATH IS NOT CLEAR!";
+                                }
+                            }
+                            // if it's an own chessman:
+                            else if (tmpChar == this.currentPlayer.getName()) {
+                                return "IMPOSSIBLE MOVEMENT - OWN CHESSMAN IN DESTINATION FIELD!";
+                            }
                         }
                         // if it's a Queen:
                         else if (currentChessman.getChessman() == 'Q') {
@@ -437,11 +590,11 @@ public class Board {
         Board board1 = new Board(player1, player2);
 
         // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
-        board1.setChessmanToMove(new Movement(3, 4));
+        board1.setChessmanToMove(new Movement(2, 4));
         //System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
 
         // ustawiamy ruch, których chcemy wykonać:
-        board1.setNextMovement(new Movement(5,4));
+        board1.setNextMovement(new Movement(5,7));
         //System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
 
         //System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
