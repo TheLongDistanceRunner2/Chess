@@ -128,8 +128,8 @@ public class Board {
                             }
                         }
                     }
-                    // if it's a kNight:
-                    else if (currentChessman.getChessman() == 'N') {
+                    // if it's a kNight or a King:
+                    else if (currentChessman.getChessman() == 'N' || currentChessman.getChessman() == 'K') {
                         // if destination field is empty:
                         if (tmpChar == '[') {
                             return "POSSIBLE MOVEMENT - DESTINATION FIELD IS FREE";
@@ -868,7 +868,7 @@ public class Board {
         //System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
 
         // ustawiamy ruch, których chcemy wykonać:
-        board1.setNextMovement(new Movement(1,3));
+        board1.setNextMovement(new Movement(3,2));
         //System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
 
         //System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
