@@ -763,6 +763,103 @@ public class Board {
         return "jklsdfajkladsjkld";
     }
 
+    private boolean willKingBeChecked() {
+        Movement kingPosition = null;
+        boolean flag = false;
+
+        // find the position of the King:
+        for (int i = 0; i < this.chessmen.size(); i++) {
+            for (int j = 0; j < this.chessmen.size(); j++) {
+                // if found the King:
+                if (this.chessmen.get(i).get(j).getPlayer().getName() == this.currentPlayer.getName() &&
+                        this.chessmen.get(i).get(j).getChessman() == 'K') {
+                    // set the King's position:
+                    kingPosition = new Movement(i, j);
+                }
+            }
+        }
+
+        // check first field in front of the King:
+        int _i = kingPosition.getRow() - 1;
+        int _j = kingPosition.getColumn();
+
+        // check up:
+        while (_i != -1) {
+            char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's not a free field:
+            if (tmpChar != '[') {
+                // if it's our chessman:
+                if(tmpChar == this.currentPlayer.getName()) {
+                    break;
+                }
+                // if it's an opponent:
+                else if (tmpChar == this.opponentPlayer.getName()) {
+                    // if it's a Queen or a Rook:
+                    if (tmpChar2 == 'Q' || tmpChar2 == 'R') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's the other cheessman:
+                    else {
+                        // the King won't be checked, so break:
+                        break;
+                    }
+                }
+            }
+
+            _i--;
+        }
+
+        // remember to reset the King's position (check first diagonal field):
+        _i = kingPosition.getRow() - 1;
+        _j = kingPosition.getColumn() + 1;
+        int counter1 = 0;
+
+        // check up nad right:
+        while (_i != -1 && _j != - 1) {
+            char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's not a free field:
+            if (tmpChar != '[') {
+                // if it's our chessman:
+                if(tmpChar == this.currentPlayer.getName()) {
+                    break;
+                }
+                // if it's an opponent:
+                else if (tmpChar == this.opponentPlayer.getName()) {
+                    // if it's a Pawn in the first field:
+                    if(tmpChar2 == 'P' && counter1 == 0) {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's a Queen or a Rook:
+                    else if (tmpChar2 == 'Q' || tmpChar2 == 'B') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's the other cheessman:
+                    else {
+                        // the King won't be checked, so break:
+                        break;
+                    }
+                }
+            }
+
+            _i--;
+            _j++;
+            counter1++;
+        }
+
+
+        return flag;
+    }
+
     private boolean isPlayersChessman() {
         // check if the chessman to move is owned by the current player:
         if (this.chessmen.get(this.chessmanToMove.getRow())
@@ -873,7 +970,9 @@ public class Board {
 
         //System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
 
-        System.out.println("-> checkMovement(): " + board1.checkMovement());
+        //System.out.println("-> checkMovement(): " + board1.checkMovement());
+
+        System.out.println("-> willKingBeChecked:   " + board1.willKingBeChecked());
     }
 }
 
