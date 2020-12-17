@@ -779,8 +779,8 @@ public class Board {
             }
         }
 
-        // check every path starting from the King's position:                              KONIE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                                                                    //      ODDZIELNE SPRAAWDZENIE SZACHOWANIE KRÓLA PRZEZ KRÓLA, BO TO PRZECIEZ RUCH O JEDNO POLE !!!!!
+        // check every path starting from the King's position:
+
         // check first field in front of the King:
         int _i = kingPosition.getRow() - 1;
         int _j = kingPosition.getColumn();
@@ -1269,6 +1269,161 @@ public class Board {
             }
         }
 
+        //=======================================================================
+        // check if the King will be checked by the opponent's kNights:
+
+        // check up and right corner:
+
+        _i = kingPosition.getRow() - 1;
+        _j = kingPosition.getColumn() + 2;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's kNight:
+                if(tmpChar2 == 'N') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        _i = kingPosition.getRow() - 2;
+        _j = kingPosition.getColumn() + 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's kNight:
+                if(tmpChar2 == 'N') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check up and left corner:
+
+        _i = kingPosition.getRow() - 2;
+        _j = kingPosition.getColumn() - 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's kNight:
+                if(tmpChar2 == 'N') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        _i = kingPosition.getRow() - 1;
+        _j = kingPosition.getColumn() - 2;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's kNight:
+                if(tmpChar2 == 'N') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check down and left corner:
+
+        _i = kingPosition.getRow() + 1;
+        _j = kingPosition.getColumn() - 2;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's kNight:
+                if(tmpChar2 == 'N') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        _i = kingPosition.getRow() + 2;
+        _j = kingPosition.getColumn() - 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's kNight:
+                if(tmpChar2 == 'N') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check down and right corner:
+
+        _i = kingPosition.getRow() + 2;
+        _j = kingPosition.getColumn() + 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's kNight:
+                if(tmpChar2 == 'N') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        _i = kingPosition.getRow() + 1;
+        _j = kingPosition.getColumn() + 2;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's kNight:
+                if(tmpChar2 == 'N') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
         return flag;
     }
 
@@ -1373,7 +1528,7 @@ public class Board {
         Board board1 = new Board(player1, player2);
 
         // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
-        board1.setChessmanToMove(new Movement(3, 7));
+        board1.setChessmanToMove(new Movement(4, 0));
         //System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
 
         // ustawiamy ruch, których chcemy wykonać:
