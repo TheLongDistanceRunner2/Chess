@@ -779,11 +779,14 @@ public class Board {
             }
         }
 
+        // check every path starting from the King's position:                              KONIE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                                                                    //      ODDZIELNE SPRAAWDZENIE SZACHOWANIE KRÓLA PRZEZ KRÓLA, BO TO PRZECIEZ RUCH O JEDNO POLE !!!!!
         // check first field in front of the King:
         int _i = kingPosition.getRow() - 1;
         int _j = kingPosition.getColumn();
 
         // check up:
+        // while within board:
         while (_i != -1) {
             char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
             char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
@@ -810,16 +813,18 @@ public class Board {
                 }
             }
 
+            // go up:
             _i--;
         }
 
         // remember to reset the King's position (check first diagonal field):
         _i = kingPosition.getRow() - 1;
         _j = kingPosition.getColumn() + 1;
-        int counter1 = 0;
+        int counter = 0;
 
         // check up nad right:
-        while (_i != -1 && _j != - 1) {
+        // while within board:
+        while (_i != -1 && _j != - 1 && _i != 8 && _j != 8) {
             char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
             char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
 
@@ -831,13 +836,13 @@ public class Board {
                 }
                 // if it's an opponent:
                 else if (tmpChar == this.opponentPlayer.getName()) {
-                    // if it's a Pawn in the first field:
-                    if(tmpChar2 == 'P' && counter1 == 0) {
+                    // if it's a Pawn in the first field and it's the bottom Player's King:
+                    if(tmpChar2 == 'P' && counter == 0 && this.currentPlayer.getName() == '1') {
                         // the King will be checked!
                         flag = true;
                         break;
                     }
-                    // if it's a Queen or a Rook:
+                    // if it's a Queen or a Bishop:
                     else if (tmpChar2 == 'Q' || tmpChar2 == 'B') {
                         // the King will be checked!
                         flag = true;
@@ -851,9 +856,259 @@ public class Board {
                 }
             }
 
+            // go up and right:
             _i--;
             _j++;
-            counter1++;
+            counter++;
+        }
+
+        // remember to reset the King's position (check first right field):
+        _i = kingPosition.getRow();
+        _j = kingPosition.getColumn() + 1;
+        counter = 0;
+
+        // check right:
+        // while within board:
+        while (_i != -1 && _j != - 1 && _i != 8 && _j != 8) {
+            char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's not a free field:
+            if (tmpChar != '[') {
+                // if it's our chessman:
+                if(tmpChar == this.currentPlayer.getName()) {
+                    break;
+                }
+                // if it's an opponent:
+                else if (tmpChar == this.opponentPlayer.getName()) {
+                    // if it's a Queen or a Rook:
+                    if (tmpChar2 == 'Q' || tmpChar2 == 'R') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's the other cheessman:
+                    else {
+                        // the King won't be checked, so break:
+                        break;
+                    }
+                }
+            }
+
+            // go right:
+            _j++;
+            counter++;
+        }
+
+        // remember to reset the King's position (check first down and right field):
+        _i = kingPosition.getRow() + 1;
+        _j = kingPosition.getColumn() + 1;
+        counter = 0;
+
+        // check down and right:
+        // while within board:
+        while (_i != -1 && _j != - 1 && _i != 8 && _j != 8) {
+            char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's not a free field:
+            if (tmpChar != '[') {
+                // if it's our chessman:
+                if(tmpChar == this.currentPlayer.getName()) {
+                    break;
+                }
+                // if it's an opponent:
+                else if (tmpChar == this.opponentPlayer.getName()) {
+                    // if it's a Pawn in the first field and it's the upper Player's King:
+                    if(tmpChar2 == 'P' && counter == 0 && this.currentPlayer.getName() == '2') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's a Queen or a Bishop:
+                    else if (tmpChar2 == 'Q' || tmpChar2 == 'B') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's the other cheessman:
+                    else {
+                        // the King won't be checked, so break:
+                        break;
+                    }
+                }
+            }
+
+            // go down and right:
+            _i++;
+            _j++;
+            counter++;
+        }
+
+        // remember to reset the King's position (check first down):
+        _i = kingPosition.getRow() + 1;
+        _j = kingPosition.getColumn();
+        counter = 0;
+
+        // check down:
+        // while within board:
+        while (_i != -1 && _j != - 1 && _i != 8 && _j != 8) {
+            char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's not a free field:
+            if (tmpChar != '[') {
+                // if it's our chessman:
+                if(tmpChar == this.currentPlayer.getName()) {
+                    break;
+                }
+                // if it's an opponent:
+                else if (tmpChar == this.opponentPlayer.getName()) {
+                    // if it's a Queen or a Rook:
+                    if (tmpChar2 == 'Q' || tmpChar2 == 'R') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's the other cheessman:
+                    else {
+                        // the King won't be checked, so break:
+                        break;
+                    }
+                }
+            }
+
+            // go down:
+            _i++;
+            counter++;
+        }
+
+        // remember to reset the King's position (check first down and left):
+        _i = kingPosition.getRow() + 1;
+        _j = kingPosition.getColumn() - 1;
+        counter = 0;
+
+        // check down and left:
+        // while within board:
+        while (_i != -1 && _j != - 1 && _i != 8 && _j != 8) {
+            char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's not a free field:
+            if (tmpChar != '[') {
+                // if it's our chessman:
+                if(tmpChar == this.currentPlayer.getName()) {
+                    break;
+                }
+                // if it's an opponent:
+                else if (tmpChar == this.opponentPlayer.getName()) {
+                    // if it's a Pawn in the first field and it's the upper Player's King:
+                    if(tmpChar2 == 'P' && counter == 0 && this.currentPlayer.getName() == '2') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's a Queen or a Bishop:
+                    else if (tmpChar2 == 'Q' || tmpChar2 == 'B') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's the other cheessman:
+                    else {
+                        // the King won't be checked, so break:
+                        break;
+                    }
+                }
+            }
+
+            // go down and left:
+            _i++;
+            _j--;
+            counter++;
+        }
+
+        // remember to reset the King's position (check left):
+        _i = kingPosition.getRow();
+        _j = kingPosition.getColumn() - 1;
+        counter = 0;
+
+        // check left:
+        // while within board:
+        while (_i != -1 && _j != - 1 && _i != 8 && _j != 8) {
+            char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's not a free field:
+            if (tmpChar != '[') {
+                // if it's our chessman:
+                if(tmpChar == this.currentPlayer.getName()) {
+                    break;
+                }
+                // if it's an opponent:
+                else if (tmpChar == this.opponentPlayer.getName()) {
+                    // if it's a Queen or a Rook:
+                    if (tmpChar2 == 'Q' || tmpChar2 == 'R') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's the other cheessman:
+                    else {
+                        // the King won't be checked, so break:
+                        break;
+                    }
+                }
+            }
+
+            // go left:
+            _j--;
+            counter++;
+        }
+
+        // remember to reset the King's position (check up and left):
+        _i = kingPosition.getRow() - 1;
+        _j = kingPosition.getColumn() - 1;
+        counter = 0;
+
+        // check up and left:
+        // while within board:
+        while (_i != -1 && _j != - 1 && _i != 8 && _j != 8) {
+            char tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            char tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's not a free field:
+            if (tmpChar != '[') {
+                // if it's our chessman:
+                if(tmpChar == this.currentPlayer.getName()) {
+                    break;
+                }
+                // if it's an opponent:
+                else if (tmpChar == this.opponentPlayer.getName()) {
+                    // if it's a Pawn in the first field and it's the bottom Player's King:
+                    if(tmpChar2 == 'P' && counter == 0 && this.currentPlayer.getName() == '1') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's a Queen or a Bishop:
+                    else if (tmpChar2 == 'Q' || tmpChar2 == 'B') {
+                        // the King will be checked!
+                        flag = true;
+                        break;
+                    }
+                    // if it's the other cheessman:
+                    else {
+                        // the King won't be checked, so break:
+                        break;
+                    }
+                }
+            }
+
+            // go up and left:
+            _i--;
+            _j--;
+            counter++;
         }
 
 
