@@ -1111,6 +1111,163 @@ public class Board {
             counter++;
         }
 
+        //=======================================================================
+        // check if the King will be checked by the opponent's King:
+
+        // check 1 field up:
+        _i = kingPosition.getRow() - 1;
+        _j = kingPosition.getColumn();
+
+        char tmpChar = ' ';
+        char tmpChar2 = ' ';
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's King:
+                if(tmpChar2 == 'K') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check 1 field up and right:
+        _i = kingPosition.getRow() - 1;
+        _j = kingPosition.getColumn() + 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's King:
+                if(tmpChar2 == 'K') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check 1 field right:
+        _i = kingPosition.getRow();
+        _j = kingPosition.getColumn() + 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's King:
+                if(tmpChar2 == 'K') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check 1 field down and right:
+        _i = kingPosition.getRow() + 1;
+        _j = kingPosition.getColumn() + 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's King:
+                if(tmpChar2 == 'K') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check 1 field down:
+        _i = kingPosition.getRow() + 1;
+        _j = kingPosition.getColumn();
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's King:
+                if(tmpChar2 == 'K') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check 1 field down and left:
+        _i = kingPosition.getRow() + 1;
+        _j = kingPosition.getColumn() - 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's King:
+                if(tmpChar2 == 'K') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check 1 field left:
+        _i = kingPosition.getRow();
+        _j = kingPosition.getColumn() - 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's King:
+                if(tmpChar2 == 'K') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
+
+        // check 1 field up and left:
+        _i = kingPosition.getRow() - 1;
+        _j = kingPosition.getColumn() - 1;
+
+        // if we are within board:
+        if (_i > -1 && _j > - 1 && _i < 8 && _j < 8) {
+            tmpChar = this.chessmen.get(_i).get(_j).getPlayer().getName();
+            tmpChar2 = this.chessmen.get(_i).get(_j).getChessman();
+
+            // if it's the opponent:
+            if (tmpChar == this.opponentPlayer.getName()) {
+                // if it's the opponent's King:
+                if(tmpChar2 == 'K') {
+                    // the King will be checked!
+                    flag = true;
+                }
+            }
+        }
 
         return flag;
     }
@@ -1216,7 +1373,7 @@ public class Board {
         Board board1 = new Board(player1, player2);
 
         // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
-        board1.setChessmanToMove(new Movement(4, 3));
+        board1.setChessmanToMove(new Movement(3, 7));
         //System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
 
         // ustawiamy ruch, których chcemy wykonać:
