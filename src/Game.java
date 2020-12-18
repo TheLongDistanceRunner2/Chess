@@ -92,34 +92,43 @@ public class Game {
     public static void main(String[] args) throws IOException {
         Game game1 = new Game();
 
-        System.out.println("Choose the chessman to move: ");
+        System.out.println("        => Choose the chessman to move: <= \n\n"
+                                + "Enter row number:" );
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String chessmanToMove = reader.readLine();
+        int _i = -1;
+        _i = Integer.parseInt(reader.readLine());
+        System.out.println("Enter column name: ");
+        String inputColumn = reader.readLine();
 
         // if entered chessman:
-        if (chessmanToMove != null) {
-            int _i = game1.convertColumn(chessmanToMove.charAt(0));
-            int _j = (int) chessmanToMove.charAt(1);
-            Chessman chessman = game1.getBoard1().getChessmen().get(_i).get(_j);
+        if (_i != -1) {
+            int _j = game1.convertColumn(inputColumn.charAt(0));
+            int iMinusOne = _i--;
+            // add 1 to i in order to use real world notation!
+            Chessman chessman = game1.getBoard1().getChessmen().get(iMinusOne).get(_j);
 
             // if it's your chessman:
             if (chessman.getPlayer().getName() == game1.getCurrentPlayer().getName()) {
                 // set which chessman to move:
-                game1.getBoard1().setChessmanToMove(new Movement(_i, _j));
+                game1.getBoard1().setChessmanToMove(new Movement(iMinusOne, _j));
 
                 // enter where to move it:
-                System.out.println("Choose where to move: ");
-                String destination = reader.readLine();
+                System.out.println("        => Enter where to move: <= \n"
+                                        + "Enter row number:" );
+                int _k =  Integer.parseInt(reader.readLine());
 
-                // extract the indexes:
-                int _k = game1.convertColumn(destination.charAt(0));
-                int _l = (int) destination.charAt(1);
+                int kMinusOne = _k--;
+
+                System.out.println("Enter column number:" );
+                String destinationColumn = reader.readLine();
+                // extract the index:
+                int _l = game1.convertColumn(destinationColumn.charAt(0));
 
                 // set the next movement:
-                game1.getBoard1().setNextMovement(new Movement(_k, _l));
+                game1.getBoard1().setNextMovement(new Movement(kMinusOne, _l));
 
                 // and check the movement of the chosen chessman:
-                game1.getBoard1().checkMovement();
+                System.out.println(game1.getBoard1().checkMovement());
             }
             else {
                 System.out.println("It's not your chessman!");
