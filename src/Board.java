@@ -184,7 +184,7 @@ public class Board {
                             }
                             // if it's an own chessman:
                             else if (tmpChar == this.currentPlayer.getName()) {
-                                return "IMPOSSIBLE MOVEMENT - IT'S OWN CHESSMAN!";
+                                return "IMPOSSIBLE MOVEMENT - IT'S OWN CHESSMAN THERE!";
                             }
                         }
                     }
@@ -227,7 +227,7 @@ public class Board {
                         }
                         // if it's an own chessman:
                         else if (tmpChar == this.currentPlayer.getName()) {
-                            return "IMPOSSIBLE MOVEMENT - IT'S OWN CHESSMAN!";
+                            return "IMPOSSIBLE MOVEMENT - IT'S OWN CHESSMAN THERE!";
                         }
                     }
                     // if it's the other chessman:
@@ -503,7 +503,7 @@ public class Board {
 
                                     // if the King won't be checked:
                                     if (!_flag) {
-                                        return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                        return "POSSIBLE MOVEMENT - THE FIELD IS FREE!";
                                     }
                                     else {
                                         return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -751,7 +751,7 @@ public class Board {
 
                                     // if the King won't be checked:
                                     if (!_flag) {
-                                        return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                        return "POSSIBLE MOVEMENT - THE FIELD IS FREE!";
                                     }
                                     else {
                                         return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -931,7 +931,7 @@ public class Board {
 
                             // if the King won't be checked:
                             if (!_flag) {
-                                return "POSSIBLE MOVEMENT";
+                                return "POSSIBLE MOVEMENT";                                                         // <<<<<<<<<<<
                             }
                             else {
                                 return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -951,7 +951,7 @@ public class Board {
             return "IMPOSSIBLE MOVEMENT - IT'S NOT YOUR CHESSMAN !!!";
         }
 
-        return "jklsdfajkladsjkld";
+        return " ! ";
     }
 
     //===================================================

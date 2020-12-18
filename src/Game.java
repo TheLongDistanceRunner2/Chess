@@ -16,11 +16,12 @@ public class Game {
         this.currentPlayer = this.player1;
     }
 
-    public Game(Player player1, Player player2, Board board1, Player currentPlayer) {
+    public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
-        this.board1 = board1;
-        this.currentPlayer = currentPlayer;
+        this.board1 = new Board(player1, player2);
+        // the current Player is the Player1:
+        this.currentPlayer = this.player1;
     }
 
     public Player getPlayer1() {
@@ -92,19 +93,10 @@ public class Game {
 
     public static void main(String[] args) throws IOException {
         Game game1 = new Game();
+        //Game game1 = new Game(new Player('2'), new Player('1'));
 
         System.out.println("        => Choose the chessman to move: <= \n\n"
                                 + "Enter row number:" );
-//        int tmpR1 = 7;
-//        int tmpC1 = 2;
-//        int tmpR2 = 5;
-//        int tmpC2 = 2;
-//
-//        game1.getBoard1().setChessmanToMove(new Movement(tmpR1 - 1, tmpC1 - 1));
-//        game1.getBoard1().setNextMovement(new Movement(tmpR2 - 1, tmpC2 - 1));
-//        System.out.println(game1.getBoard1().checkMovement());
-
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         int row1 = -1;
@@ -151,20 +143,5 @@ public class Game {
         else {
             System.out.println("You haven't entered anything!");
         }
-
-
-        // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
-        //board1.setChessmanToMove(new Movement(4, 0));
-        //System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
-
-        // ustawiamy ruch, których chcemy wykonać:
-        //board1.setNextMovement(new Movement(3,2));
-        //System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
-
-        //System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
-
-        //System.out.println("-> checkMovement(): " + board1.checkMovement());
-
-        //System.out.println("-> willKingBeChecked:   " + board1.willKingBeChecked());
     }
 }
