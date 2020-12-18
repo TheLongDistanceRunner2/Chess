@@ -60,35 +60,7 @@ public class Board {
         this.chessmen = chessmen;
     }
 
-    private char convertColumn(int j) {
-        if (j == 0) {
-            return 'A';
-        }
-        else if (j == 1) {
-            return 'B';
-        }
-        else if (j == 2) {
-            return 'C';
-        }
-        else if (j == 3) {
-            return 'D';
-        }
-        else if (j == 4) {
-            return 'E';
-        }
-        else if (j == 5) {
-            return 'F';
-        }
-        else if (j == 6) {
-            return 'G';
-        }
-        else if (j == 7) {
-            return 'H';
-        }
-        return ' ';
-    }
-
-    private void showData() {
+    public void showData() {
         for (int i = 0; i < this.chessmen.size(); i++) {
             for (int j = 0; j < this.chessmen.size(); j++) {
                 System.out.print(this.chessmen.get(i).get(j).getPlayer().getName()
@@ -98,22 +70,6 @@ public class Board {
         }
     }
 
-    private void setChessmanToNewField() {
-        // set the chessman to the new positon:
-        this.chessmen.get(this.nextMovement.getRow()).set(this.nextMovement.getColumn(),
-                this.chessmen.get(this.chessmanToMove.getRow()).get(this.chessmanToMove.getColumn()));
-        // and remove it from the previous field:
-        this.chessmen.get(this.chessmanToMove.getRow()).set(this.chessmanToMove.getColumn(),
-                new Chessman(this.chessmanToMove.getRow(), this.convertColumn(this.chessmanToMove.getColumn()),
-                        new Player('['), ']'));
-
-        // print data:
-        System.out.println("=================================");
-        this.showData();
-        System.out.println("=================================");
-    }
-
-    //===================================================
     public String checkMovement() {
         // if it is the chessman of the current player:
         if (isPlayersChessman()) {
@@ -124,7 +80,7 @@ public class Board {
                     // whose chessman is in the destination field:
                     char tmpChar = this.getDestinationField().getPlayer().getName();
                     // get this chessman:
-                    char tmpChar2 = this.getDestinationField().getChessman();  // zrobic legende p -> pawn itd.
+                    char tmpChar2 = this.getDestinationField().getChessman();
 
                     // if it's a Pawn:
                     if(currentChessman.getChessman() == 'P') {
@@ -213,7 +169,14 @@ public class Board {
 
                                 // if the King won't be checked:
                                 if (!flag) {
-                                    return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    " + tmpChar2 + " !";
+                                    // if it's not the King:
+                                    if (tmpChar2 != 'K') {
+                                        return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    "
+                                                + this.returnFullName(tmpChar2) + " !";
+                                    }
+                                    else {
+                                        return "POSSIBLE CHECK!";
+                                    }
                                 }
                                 else {
                                     return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -249,7 +212,14 @@ public class Board {
 
                             // if the King won't be checked:
                             if (!flag) {
-                                return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    " + tmpChar2 + " !";
+                                // if it's not the King:
+                                if (tmpChar2 != 'K') {
+                                    return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    "
+                                            + this.returnFullName(tmpChar2) + " !";
+                                }
+                                else {
+                                    return "POSSIBLE CHECK!";
+                                }
                             }
                             else {
                                 return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -432,7 +402,14 @@ public class Board {
 
                                     // if the King won't be checked:
                                     if (!_flag) {
-                                        return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                        // if it's not the King:
+                                        if (tmpChar2 != 'K') {
+                                            return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    "
+                                                    + this.returnFullName(tmpChar2) + " !";
+                                        }
+                                        else {
+                                            return "POSSIBLE CHECK!";
+                                        }
                                     }
                                     else {
                                         return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -613,7 +590,14 @@ public class Board {
 
                                     // if the King won't be checked:
                                     if (!_flag) {
-                                        return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                        // if it's not the King:
+                                        if (tmpChar2 != 'K') {
+                                            return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    "
+                                                    + this.returnFullName(tmpChar2) + " !";
+                                        }
+                                        else {
+                                            return "POSSIBLE CHECK!";
+                                        }
                                     }
                                     else {
                                         return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -914,7 +898,14 @@ public class Board {
 
                                     // if the King won't be checked:
                                     if (!_flag) {
-                                        return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                        // if it's not the King:
+                                        if (tmpChar2 != 'K') {
+                                            return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    "
+                                                    + this.returnFullName(tmpChar2) + " !";
+                                        }
+                                        else {
+                                            return "POSSIBLE CHECK!";
+                                        }
                                     }
                                     else {
                                         return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -961,6 +952,73 @@ public class Board {
         }
 
         return "jklsdfajkladsjkld";
+    }
+
+    //===================================================
+    // private:
+
+    private void setChessmanToNewField() {
+        // set the chessman to the new positon:
+        this.chessmen.get(this.nextMovement.getRow()).set(this.nextMovement.getColumn(),
+                this.chessmen.get(this.chessmanToMove.getRow()).get(this.chessmanToMove.getColumn()));
+        // and remove it from the previous field:
+        this.chessmen.get(this.chessmanToMove.getRow()).set(this.chessmanToMove.getColumn(),
+                new Chessman(this.chessmanToMove.getRow(), this.convertColumn(this.chessmanToMove.getColumn()),
+                        new Player('['), ']'));
+
+        // print data:
+        System.out.println("=================================");
+        this.showData();
+        System.out.println("=================================");
+    }
+
+    private char convertColumn(int j) {
+        if (j == 0) {
+            return 'A';
+        }
+        else if (j == 1) {
+            return 'B';
+        }
+        else if (j == 2) {
+            return 'C';
+        }
+        else if (j == 3) {
+            return 'D';
+        }
+        else if (j == 4) {
+            return 'E';
+        }
+        else if (j == 5) {
+            return 'F';
+        }
+        else if (j == 6) {
+            return 'G';
+        }
+        else if (j == 7) {
+            return 'H';
+        }
+        return ' ';
+    }
+
+    private String returnFullName(char c) {
+        if (c == 'P') {
+            return "Pawn";
+        }
+        else if (c == 'R') {
+            return "Rook";
+        }
+        else if (c == 'B') {
+            return "Bishop";
+        }
+        else if (c == 'N') {
+            return "kNight";
+        }
+        else if (c == 'Q') {
+            return "Queen";
+        }
+        else {
+            return "King";
+        }
     }
 
     private boolean willKingBeChecked() {
@@ -1691,11 +1749,6 @@ public class Board {
         else {
             return false;
         }
-    }
-
-    //==================================================================================================================
-    public static void main(String[] args) {
-
     }
 }
 

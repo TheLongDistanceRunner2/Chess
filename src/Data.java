@@ -73,6 +73,9 @@ public class Data {
         }
     }
 
+    //============================================
+    // private:
+
     private char convertColumn(int j) {
         if (j == 0) {
             return 'A';
@@ -100,10 +103,4 @@ public class Data {
         }
         return 'x';
     }
-
-//    public static void main(String[] args) {
-//        Data data1 = new Data("input.txt");
-//        data1.readFile();
-//        data1.showData();
-//    }
 }

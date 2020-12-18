@@ -28,10 +28,6 @@ public class Chessman {
         this.setMovements();
     }
 
-    //======================================
-
-    //=======================================
-
     public int getRow() {
         return row;
     }
@@ -64,7 +60,13 @@ public class Chessman {
         this.player = player;
     }
 
+    public List<Movement> getMovements() {
+        return movements;
+    }
+
     //============================================
+    // private:
+
     private void setMovements() {
         // if it's a Pawn:
         if(this.chessman == 'P') {
@@ -90,10 +92,6 @@ public class Chessman {
         else if (this.chessman == 'Q') {
             this.setMovementsQueen();
         }
-    }
-
-    public List<Movement> getMovements() {
-        return movements;
     }
 
     private int convertColumn(char j) {
