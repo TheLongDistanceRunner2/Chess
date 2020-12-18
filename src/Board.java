@@ -52,6 +52,67 @@ public class Board {
         this.nextMovement = nextMovement;
     }
 
+    public List<List<Chessman>> getChessmen() {
+        return chessmen;
+    }
+
+    public void setChessmen(List<List<Chessman>> chessmen) {
+        this.chessmen = chessmen;
+    }
+
+    private char convertColumn(int j) {
+        if (j == 0) {
+            return 'A';
+        }
+        else if (j == 1) {
+            return 'B';
+        }
+        else if (j == 2) {
+            return 'C';
+        }
+        else if (j == 3) {
+            return 'D';
+        }
+        else if (j == 4) {
+            return 'E';
+        }
+        else if (j == 5) {
+            return 'F';
+        }
+        else if (j == 6) {
+            return 'G';
+        }
+        else if (j == 7) {
+            return 'H';
+        }
+        return ' ';
+    }
+
+    private void showData() {
+        for (int i = 0; i < this.chessmen.size(); i++) {
+            for (int j = 0; j < this.chessmen.size(); j++) {
+                System.out.print(this.chessmen.get(i).get(j).getPlayer().getName()
+                        + "" + this.chessmen.get(i).get(j).getChessman() + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private void setChessmanToNewField() {
+        // set the chessman to the new positon:
+        this.chessmen.get(this.nextMovement.getRow()).set(this.nextMovement.getColumn(),
+                this.chessmen.get(this.chessmanToMove.getRow()).get(this.chessmanToMove.getColumn()));
+        // and remove it from the previous field:
+        this.chessmen.get(this.chessmanToMove.getRow()).set(this.chessmanToMove.getColumn(),
+                new Chessman(this.chessmanToMove.getRow(), this.convertColumn(this.chessmanToMove.getColumn()),
+                        new Player('['), ']'));
+
+        // print data:
+        System.out.println("=================================");
+        this.showData();
+        System.out.println("=================================");
+    }
+
     //===================================================
     public String checkMovement() {
         // if it is the chessman of the current player:
@@ -77,7 +138,19 @@ public class Board {
                             if(steps == 1) {
                                 // if destination field is empty:
                                 if (tmpChar == '[') {
-                                    return "POSSIBLE MOVEMENT";
+                                    // move the chessman to the next position in order to check whether
+                                    // your King will be checked:
+                                    this.setChessmanToNewField();
+
+                                    boolean flag = this.willKingBeChecked();
+
+                                    // if the King won't be checked:
+                                    if (!flag) {
+                                        return "POSSIBLE MOVEMENT";
+                                    }
+                                    else {
+                                        return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                    }
                                 }
                                 // if there is an opponent's chessman:
                                 else if (tmpChar == this.opponentPlayer.getName()) {
@@ -96,7 +169,19 @@ public class Board {
                                         .getPlayer().getName() == '[') {
                                     // if the second field is empty:
                                     if (tmpChar == '[') {
-                                        return "POSSIBLE MOVEMENT";
+                                        // move the chessman to the next position in order to check whether
+                                        // your King will be checked:
+                                        this.setChessmanToNewField();
+
+                                        boolean flag = this.willKingBeChecked();
+
+                                        // if the King won't be checked:
+                                        if (!flag) {
+                                            return "POSSIBLE MOVEMENT";
+                                        }
+                                        else {
+                                            return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                        }
                                     }
                                     // if there is an opponent's chessman:
                                     else if (tmpChar == this.opponentPlayer.getName()) {
@@ -120,7 +205,19 @@ public class Board {
                             }
                             // if there is an opponent's chessman:
                             else if (tmpChar == this.opponentPlayer.getName()) {
-                                return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    " + tmpChar2 + " !";
+                                // move the chessman to the next position in order to check whether
+                                // your King will be checked:
+                                this.setChessmanToNewField();
+
+                                boolean flag = this.willKingBeChecked();
+
+                                // if the King won't be checked:
+                                if (!flag) {
+                                    return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    " + tmpChar2 + " !";
+                                }
+                                else {
+                                    return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                }
                             }
                             // if it's an own chessman:
                             else if (tmpChar == this.currentPlayer.getName()) {
@@ -132,11 +229,31 @@ public class Board {
                     else if (currentChessman.getChessman() == 'N' || currentChessman.getChessman() == 'K') {
                         // if destination field is empty:
                         if (tmpChar == '[') {
-                            return "POSSIBLE MOVEMENT - DESTINATION FIELD IS FREE";
+                            // move the chessman to the next position in order to check whether
+                            // your King will be checked:
+                            this.setChessmanToNewField();
+
+                            boolean flag = this.willKingBeChecked();
+
+                            // if the King won't be checked:
+                            if (!flag) {
+                                return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                            }
+                            else {
+                                return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                            }
                         }
                         // if there is an opponent's chessman:
                         else if (tmpChar == this.opponentPlayer.getName()) {
-                            return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    " + tmpChar2 + " !";
+                            boolean flag = this.willKingBeChecked();
+
+                            // if the King won't be checked:
+                            if (!flag) {
+                                return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S    " + tmpChar2 + " !";
+                            }
+                            else {
+                                return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                            }
                         }
                         // if it's an own chessman:
                         else if (tmpChar == this.currentPlayer.getName()) {
@@ -220,7 +337,19 @@ public class Board {
 
                                 // if the flag remained unchanged:
                                 if (flag) {
-                                    return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                    // move the chessman to the next position in order to check whether
+                                    // your King will be checked:
+                                    this.setChessmanToNewField();
+
+                                    boolean _flag = this.willKingBeChecked();
+
+                                    // if the King won't be checked:
+                                    if (!_flag) {
+                                        return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                    }
+                                    else {
+                                        return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                    }
                                 }
                                 // if it was changed:
                                 else {
@@ -295,7 +424,19 @@ public class Board {
 
                                 // if the flag remained unchanged:
                                 if (flag) {
-                                    return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                    // move the chessman to the next position in order to check whether
+                                    // your King will be checked:
+                                    this.setChessmanToNewField();
+
+                                    boolean _flag = this.willKingBeChecked();
+
+                                    // if the King won't be checked:
+                                    if (!_flag) {
+                                        return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                    }
+                                    else {
+                                        return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                    }
                                 }
                                 // if it was changed:
                                 else {
@@ -377,7 +518,19 @@ public class Board {
 
                                 // if the flag remained unchanged:
                                 if (flag) {
-                                    return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                    // move the chessman to the next position in order to check whether
+                                    // your King will be checked:
+                                    this.setChessmanToNewField();
+
+                                    boolean _flag = this.willKingBeChecked();
+
+                                    // if the King won't be checked:
+                                    if (!_flag) {
+                                        return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                    }
+                                    else {
+                                        return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                    }
                                 }
                                 // if it was changed:
                                 else {
@@ -452,7 +605,19 @@ public class Board {
 
                                 // if the flag remained unchanged:
                                 if (flag) {
-                                    return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                    // move the chessman to the next position in order to check whether
+                                    // your King will be checked:
+                                    this.setChessmanToNewField();
+
+                                    boolean _flag = this.willKingBeChecked();
+
+                                    // if the King won't be checked:
+                                    if (!_flag) {
+                                        return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                    }
+                                    else {
+                                        return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                    }
                                 }
                                 // if it was changed:
                                 else {
@@ -594,7 +759,19 @@ public class Board {
 
                                 // if the flag remained unchanged:
                                 if (flag) {
-                                    return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                    // move the chessman to the next position in order to check whether
+                                    // your King will be checked:
+                                    this.setChessmanToNewField();
+
+                                    boolean _flag = this.willKingBeChecked();
+
+                                    // if the King won't be checked:
+                                    if (!_flag) {
+                                        return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                    }
+                                    else {
+                                        return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                    }
                                 }
                                 // if it was changed:
                                 else {
@@ -729,13 +906,24 @@ public class Board {
 
                                 // if the flag remained unchanged:
                                 if (flag) {
-                                    return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                    // move the chessman to the next position in order to check whether
+                                    // your King will be checked:
+                                    this.setChessmanToNewField();
+
+                                    boolean _flag = this.willKingBeChecked();
+
+                                    // if the King won't be checked:
+                                    if (!_flag) {
+                                        return "POSSIBLE MOVEMENT - POSSIBLE CAPTURE OF OPPONENT'S     " + tmpChar2 + " !";
+                                    }
+                                    else {
+                                        return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                                    }
                                 }
                                 // if it was changed:
                                 else {
                                     return "IMPOSSIBLE MOVEMENT - THE PATH IS NOT CLEAR!";
                                 }
-
                             }
                             // if it's an own chessman:
                             else if (tmpChar == this.currentPlayer.getName()) {
@@ -744,7 +932,19 @@ public class Board {
                         }
                         // if it's a King:
                         else if (currentChessman.getChessman() == 'K') {
-                            return "POSSIBLE MOVEMENT";
+                            // move the chessman to the next position in order to check whether
+                            // your King will be checked:
+                            this.setChessmanToNewField();
+
+                            boolean _flag = this.willKingBeChecked();
+
+                            // if the King won't be checked:
+                            if (!_flag) {
+                                return "POSSIBLE MOVEMENT";
+                            }
+                            else {
+                                return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
+                            }
                         }
                     }
                 }
@@ -1439,34 +1639,6 @@ public class Board {
         }
     }
 
-    private int convertColumn(char j) {
-        if (j == 'A') {
-            return 0;
-        }
-        else if (j == 'B') {
-            return 1;
-        }
-        else if (j == 'C') {
-            return 2;
-        }
-        else if (j == 'D') {
-            return 3;
-        }
-        else if (j == 'E') {
-            return 4;
-        }
-        else if (j == 'F') {
-            return 5;
-        }
-        else if (j == 'G') {
-            return 6;
-        }
-        else if (j == 'H') {
-            return 7;
-        }
-        return -1;
-    }
-
     private boolean isMovementInList(Movement movement) {
         Chessman currentChessman = this.chessmen.get(this.chessmanToMove.getRow())
                 .get(this.chessmanToMove.getColumn());
@@ -1523,23 +1695,7 @@ public class Board {
 
     //==================================================================================================================
     public static void main(String[] args) {
-        Player player1 = new Player('1');
-        Player player2 = new Player('2');
-        Board board1 = new Board(player1, player2);
 
-        // USTAWIAMY INDEXY ZAWSZE LICZĄC OD ZERA !!!!!!!!!!!!!!!!!!
-        board1.setChessmanToMove(new Movement(4, 0));
-        //System.out.println("-> Czy to figura naszego gracza: " + board1.isPlayersChessman());
-
-        // ustawiamy ruch, których chcemy wykonać:
-        board1.setNextMovement(new Movement(3,2));
-        //System.out.println("-> Czy ta figura ma taki ruch: " + board1.hasThisMovement());
-
-        //System.out.println("-> Czy ta figura jest w obrebie planszy: " + board1.isIWithinBoard());
-
-        //System.out.println("-> checkMovement(): " + board1.checkMovement());
-
-        System.out.println("-> willKingBeChecked:   " + board1.willKingBeChecked());
     }
 }
 
