@@ -12,7 +12,7 @@ public class Game {
         this.player1 = new Player('1');
         this.player2 = new Player('2');
         this.board1 = new Board(player1, player2);
-        // current Player is Player1:
+        // the current Player is the Player1:
         this.currentPlayer = this.player1;
     }
 
@@ -105,7 +105,6 @@ public class Game {
 //        System.out.println(game1.getBoard1().checkMovement());
 
 
-        // odkomentuj:
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         int row1 = -1;
@@ -118,14 +117,14 @@ public class Game {
         if (row1 != -1) {
             int column1 = game1.convertColumn(tmp1.charAt(0));
 
-            // (row1 - 1) and (column1 - 1) in order to use real world notation!
-            Chessman chessman = game1.getBoard1().getChessmen().get(row1 - 1).get(column1 - 1);
+            // (row1 - 1) and (column1) in order to use real world notation!
+            Chessman chessman = game1.getBoard1().getChessmen().get(row1 - 1).get(column1);
 
             // if it's your chessman:
             if (chessman.getPlayer().getName() == game1.getCurrentPlayer().getName()) {
                 // set which chessman to move:
-                // =>  (row1 - 1) and (column1 - 1) in order to use real world notation!
-                game1.getBoard1().setChessmanToMove(new Movement(row1 - 1, column1 - 1));
+                // =>  (row1 - 1) and (column1) in order to use real world notation!
+                game1.getBoard1().setChessmanToMove(new Movement(row1 - 1, column1));
 
                 // enter where to move it:
                 System.out.println("        => Enter where to move: <= \n\n"
@@ -139,8 +138,8 @@ public class Game {
                 int column2 = game1.convertColumn(tmp2.charAt(0));
 
                 // set the next movement:
-                // =>  (row2 - 1) and (column2 - 1) in order to use real world notation!
-                game1.getBoard1().setNextMovement(new Movement(row2 - 1, column2 - 1));
+                // =>  (row2 - 1) in order to use real world notation!
+                game1.getBoard1().setNextMovement(new Movement(row2 - 1, column2));
 
                 // and check the movement of the chosen chessman:
                 System.out.println(game1.getBoard1().checkMovement());

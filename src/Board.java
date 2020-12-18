@@ -1002,22 +1002,22 @@ public class Board {
 
     private String returnFullName(char c) {
         if (c == 'P') {
-            return "Pawn";
+            return "PAWN";
         }
         else if (c == 'R') {
-            return "Rook";
+            return "ROOK";
         }
         else if (c == 'B') {
-            return "Bishop";
+            return "BISHOP";
         }
         else if (c == 'N') {
-            return "kNight";
+            return "KNIGHT";
         }
         else if (c == 'Q') {
-            return "Queen";
+            return "QUEEN";
         }
         else {
-            return "King";
+            return "KING";
         }
     }
 
