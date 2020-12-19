@@ -102,7 +102,7 @@ public class Board {
 
                                     // if the King won't be checked:
                                     if (!flag) {
-                                        return "POSSIBLE MOVEMENT";
+                                        return "POSSIBLE MOVEMENT - THE FIELD IS FREE!";
                                     }
                                     else {
                                         return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -133,7 +133,7 @@ public class Board {
 
                                         // if the King won't be checked:
                                         if (!flag) {
-                                            return "POSSIBLE MOVEMENT";
+                                            return "POSSIBLE MOVEMENT - THE FIELD IS FREE!";
                                         }
                                         else {
                                             return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -200,7 +200,7 @@ public class Board {
 
                             // if the King won't be checked:
                             if (!flag) {
-                                return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                return "POSSIBLE MOVEMENT - THE FIELD IS FREE!";
                             }
                             else {
                                 return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -315,7 +315,7 @@ public class Board {
 
                                     // if the King won't be checked:
                                     if (!_flag) {
-                                        return "POSSIBLE MOVEMENT - NO OPPONENT HERE!";
+                                        return "POSSIBLE MOVEMENT - THE FIELD IS FREE!";
                                     }
                                     else {
                                         return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -931,7 +931,7 @@ public class Board {
 
                             // if the King won't be checked:
                             if (!_flag) {
-                                return "POSSIBLE MOVEMENT";                                                         // <<<<<<<<<<<
+                                return "POSSIBLE MOVEMENT - THE FIELD IS FREE!";
                             }
                             else {
                                 return "IMPOSSIBLE MOVEMENT - YOUR KING WILL BE CHECKED!";
@@ -967,9 +967,9 @@ public class Board {
                         new Player('['), ']'));
 
         // print data:
-        System.out.println("=================================");
-        this.showData();
-        System.out.println("=================================");
+        // System.out.println("=================================");
+        // this.showData();
+        // System.out.println("=================================");
     }
 
     private char convertColumn(int j) {

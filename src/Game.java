@@ -97,51 +97,86 @@ public class Game {
 
         System.out.println("        => Choose the chessman to move: <= \n\n"
                                 + "Enter row number:" );
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        int row1 = -1;
-        row1 = Integer.parseInt(reader.readLine());
+        int row1 = Integer.parseInt(reader.readLine());
 
-        System.out.println("Enter column name: ");
-        String tmp1 = reader.readLine();
+        // if entered row appropriately:
+        if (row1 == 1 || row1 == 2
+                || row1 == 3 || row1 == 4
+                || row1 == 5 || row1 == 6
+                || row1 == 7 || row1 == 8) {
 
-        // if entered chessman:
-        if (row1 != -1) {
-            int column1 = game1.convertColumn(tmp1.charAt(0));
+            System.out.println("Enter column name: ");
+            String tmp1 = reader.readLine();
 
-            // (row1 - 1) and (column1) in order to use real world notation!
-            Chessman chessman = game1.getBoard1().getChessmen().get(row1 - 1).get(column1);
+            // if entered column appropriately:
+            if (tmp1.charAt(0) == 'A' || tmp1.charAt(0) == 'B'
+                    || tmp1.charAt(0) == 'C' || tmp1.charAt(0) == 'D'
+                    || tmp1.charAt(0) == 'E' || tmp1.charAt(0) == 'F'
+                    || tmp1.charAt(0) == 'G' || tmp1.charAt(0) == 'H') {
 
-            // if it's your chessman:
-            if (chessman.getPlayer().getName() == game1.getCurrentPlayer().getName()) {
-                // set which chessman to move:
-                // =>  (row1 - 1) and (column1) in order to use real world notation!
-                game1.getBoard1().setChessmanToMove(new Movement(row1 - 1, column1));
+                int column1 = game1.convertColumn(tmp1.charAt(0));
 
-                // enter where to move it:
-                System.out.println("        => Enter where to move: <= \n\n"
-                                        + "Enter row number:" );
-                int row2 =  Integer.parseInt(reader.readLine());
+                // (row1 - 1) and (column1) in order to use real world notation!
+                Chessman chessman = game1.getBoard1().getChessmen().get(row1 - 1).get(column1);
 
-                System.out.println("Enter column number:" );
-                String tmp2 = reader.readLine();
+                // if it's your chessman:
+                if (chessman.getPlayer().getName() == game1.getCurrentPlayer().getName()) {
+                    // set which chessman to move:
+                    // =>  (row1 - 1) and (column1) in order to use real world notation!
+                    game1.getBoard1().setChessmanToMove(new Movement(row1 - 1, column1));
 
-                // extract the index:
-                int column2 = game1.convertColumn(tmp2.charAt(0));
+                    // enter where to move it:
+                    System.out.println("        => Enter where to move: <= \n\n"
+                            + "Enter row number:");
 
-                // set the next movement:
-                // =>  (row2 - 1) in order to use real world notation!
-                game1.getBoard1().setNextMovement(new Movement(row2 - 1, column2));
+                    int row2 = Integer.parseInt(reader.readLine());
 
-                // and check the movement of the chosen chessman:
-                System.out.println(game1.getBoard1().checkMovement());
+                    // if entered row appropriately:
+                    if (row2 == 1 || row2 == 2
+                            || row2 == 3 || row2 == 4
+                            || row2 == 5 || row2 == 6
+                            || row2 == 7 || row2 == 8) {
+
+                        System.out.println("Enter column number:");
+                        String tmp2 = reader.readLine();
+
+                        // if entered column appropriately:
+                        if (tmp2.charAt(0) == 'A' || tmp2.charAt(0) == 'B'
+                                || tmp2.charAt(0) == 'C' || tmp2.charAt(0) == 'D'
+                                || tmp2.charAt(0) == 'E' || tmp2.charAt(0) == 'F'
+                                || tmp2.charAt(0) == 'G' || tmp2.charAt(0) == 'H') {
+
+                            // extract the index:
+                            int column2 = game1.convertColumn(tmp2.charAt(0));
+
+                            // set the next movement:
+                            // =>  (row2 - 1) in order to use real world notation!
+                            game1.getBoard1().setNextMovement(new Movement(row2 - 1, column2));
+
+                            // and check the movement of the chosen chessman:
+                            System.out.println(game1.getBoard1().checkMovement());
+                        }
+                        else {
+                            System.out.println("WRONG CHARACTER! PLEASE, RESTART THE PROGRAM!");
+                        }
+                    }
+                    else {
+                        System.out.println("WRONG CHARACTER! PLEASE, RESTART THE PROGRAM!");
+                    }
+                }
+                else {
+                    System.out.println("IT'S NOT YOUR CHESSMAN! PLEASE, RESTART THE PROGRAM!");
+                }
             }
             else {
-                System.out.println("It's not your chessman!");
+                System.out.println("WRONG CHARACTER! PLEASE, RESTART THE PROGRAM!");
             }
         }
         else {
-            System.out.println("You haven't entered anything!");
+            System.out.println("WRONG CHARACTER! PLEASE, RESTART THE PROGRAM!");
         }
     }
 }
