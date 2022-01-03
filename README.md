@@ -1,6 +1,6 @@
 # Chess / Szachy 
 
-Consol application giving an answer wheter the next move is possible (concerning the rules of the game, position of all figures on the boad etc.)
+Console application giving an answer wheter the next move is possible (concerning the rules of the game, position of all figures on the boad etc.)
 
 =================================================================
 
